@@ -2,6 +2,8 @@
 
 #SUIT, RANK, VALUE
 import random
+from tkinter.font import names
+
 suits = ('Hearts', 'Diamonds', 'Spades', 'Clubs')
 ranks = ('Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace')
 values = {
@@ -28,8 +30,43 @@ class Deck:
                 created_card = Card(suit, rank)
                 self.all_cards.append(created_card)
 
-new_deck = Deck()
-bottom_card = new_deck.all_cards[-2]
+    def shuffle(self):
+        random.shuffle(self.all_cards)
 
-for card_object in new_deck.all_cards:
-    print(card_object)
+    def deal_one(self):
+        return self.all_cards.pop()
+
+new_deck = Deck()
+bottom_card = new_deck.all_cards[-1]
+
+class Player:
+
+    def __init__(self,name):
+
+        self.name = name
+        self.all_cards = []
+
+    def remove_one(self):
+        pass
+
+    def add_cards(self, new_cards):
+        if type(new_cards) == type ([]):
+            self.all_cards.extend(new_cards)
+        else:
+            self.all_cards.append(new_cards)
+
+    def __str__(self):
+        return f'Player {self.name} has {len(self.all_cards)} cards.'
+
+#for card_object in new_deck.all_cards:
+    #print(card_object)
+
+new_deck.shuffle()
+print(new_deck.all_cards[0])
+
+new_player = Player("Rayara")
+my_card = new_deck.deal_one()
+
+new_player.add_cards([my_card, my_card, my_card])
+new_player.remove_one()
+print(new_player)
